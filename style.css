@@ -11,12 +11,6 @@ body {
   min-height: 100vh;
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   color: #fff;
-  transition: background 0.5s, color 0.5s;
-}
-
-body.light-theme {
-  background: #f4f4f4;
-  color: #111;
 }
 
 /* ===== Navbar ===== */
@@ -44,7 +38,6 @@ body.light-theme {
 .navbar ul {
   list-style: none;
   width: 100%;
-  flex: 1;
 }
 
 .navbar ul li a {
@@ -63,19 +56,8 @@ body.light-theme {
   border-radius: 5px;
 }
 
-/* Settings button at bottom of navbar */
-.settings-btn {
-  margin-bottom: 20px;
-  padding: 8px 12px;
-  background: #00c8ff;
-  border: none;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-/* ===== Resume Popup ===== */
-#resume-popup {
+/* ===== Resume / Settings Popup ===== */
+#resume-popup, #settings-popup {
   position: fixed;
   top: 60px;
   left: 230px;
@@ -85,10 +67,10 @@ body.light-theme {
   display: none;
   flex-direction: column;
   gap: 10px;
-  z-index: 9999;
+  z-index: 200;
 }
 
-#resume-popup.show {
+#resume-popup.show, #settings-popup.show {
   display: flex;
 }
 
@@ -99,43 +81,11 @@ body.light-theme {
   border-radius: 5px;
   text-decoration: none;
   text-align: center;
+  cursor: pointer;
 }
 
 .resume-action-btn:hover {
   background: #0099cc;
-}
-
-.resume-close-btn {
-  padding: 5px 10px;
-  background: #ff4d4d;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-/* ===== Settings Panel ===== */
-#settings-panel {
-  position: fixed;
-  bottom: 20px;
-  left: 230px;
-  background: rgba(0,0,0,0.95);
-  padding: 15px;
-  border-radius: 10px;
-  display: none;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 9999;
-}
-
-#settings-panel.show {
-  display: flex;
-}
-
-.setting-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 /* ===== Main Content ===== */
@@ -146,26 +96,27 @@ main {
 }
 
 /* ===== Sections ===== */
-section {
+.section {
   margin-bottom: 60px;
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateX(100px);
   transition: all 0.6s ease;
+  display: none;
 }
 
-section.visible-section {
+.section.visible-section {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(0);
+  display: block;
 }
 
-.section-container {
-  max-width: 900px;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
+/* Unique animations */
+.slide-in { transform: translateX(0); }
+.slide-left { transform: translateX(-100px); }
+.fade-in { opacity: 0; transition: opacity 0.8s ease; }
+.fade-in.visible { opacity: 1; }
+.slide-up { transform: translateY(50px); transition: all 0.6s ease; }
+.slide-up.visible { transform: translateY(0); opacity:1; }
 
 /* ===== Profile Photo ===== */
 .profile-img {
@@ -177,28 +128,11 @@ section.visible-section {
   margin-bottom: 20px;
 }
 
-/* ===== About Section ===== */
-.subtitle {
-  font-size: 1.1rem;
-  color: #a0e5ff;
-  margin-bottom: 20px;
-}
-
-.summary, .education {
-  margin-bottom: 15px;
-  line-height: 1.6;
-}
-
-/* ===== Skills Section ===== */
+/* ===== Skills ===== */
 .skill {
   margin-bottom: 20px;
 }
-
-.skill span {
-  display: block;
-  margin-bottom: 5px;
-}
-
+.skill span { display: block; margin-bottom: 5px; }
 .skill-bar {
   width: 100%;
   background: rgba(255,255,255,0.1);
@@ -206,7 +140,6 @@ section.visible-section {
   border-radius: 10px;
   overflow: hidden;
 }
-
 .skill-fill {
   height: 100%;
   width: 0;
@@ -215,69 +148,126 @@ section.visible-section {
   transition: width 1s ease-in-out;
 }
 
-/* ===== Projects Section ===== */
-.projects-container {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+/* ===== Projects Accordion ===== */
+.accordion-btn {
   width: 100%;
+  background: rgba(0,0,0,0.5);
+  color: #00c8ff;
+  padding: 12px 15px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+  margin: 5px 0;
+  border-radius: 5px;
+  transition: background 0.3s;
 }
-
-.project-card {
+.accordion-btn:hover { background: rgba(0,0,0,0.7); }
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
   background: rgba(0,0,0,0.3);
-  padding: 15px;
-  border-radius: 8px;
-  text-align: left;
-}
-
-.project-card h3 {
-  font-size: 1.3rem;
-  margin-bottom: 5px;
+  padding: 0 15px;
+  transition: max-height 0.4s ease;
+  border-radius: 0 0 5px 5px;
+  margin-bottom: 10px;
 }
 
 /* ===== Contact Section ===== */
-#contact a {
-  color: #fff;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-#contact a:hover {
-  color: #00c8ff;
-  transform: scale(1.05);
-}
-
-.social-links a {
-  display: inline-block;
-  margin-right: 15px;
-  color: #fff;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.social-links a:hover {
-  color: #00c8ff;
-  transform: scale(1.1);
-}
+#contact a { color: #fff; text-decoration: none; transition: all 0.3s ease; }
+#contact a:hover { color: #00c8ff; transform: scale(1.05); }
+.social-links a { display: inline-block; margin-right: 15px; color:#fff; transition: all 0.3s ease; }
+.social-links a:hover { color:#00c8ff; transform: scale(1.1); }
 
 /* ===== Responsive ===== */
 @media(max-width: 900px){
-  body {
-    flex-direction: column;
-  }
-  .navbar {
-    width: 100%;
-    height: auto;
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 15px 0;
-  }
-  main {
-    margin-left: 0;
-    padding: 20px;
-  }
-  #resume-popup, #settings-panel {
-    left: 20px;
-    bottom: 20px;
-  }
+  body { flex-direction: column; }
+  .navbar { width: 100%; height: auto; flex-direction: row; justify-content: space-around; padding: 15px 0; }
+  main { margin-left: 0; padding: 20px; }
+}
+/* Light theme */
+body.light-theme {
+  background: #f0f0f0;
+  color: #111;
+}
+
+body.light-theme .navbar {
+  background: rgba(255,255,255,0.95);
+  color: #111;
+}
+
+body.light-theme .navbar ul li a {
+  color: #111;
+}
+
+body.light-theme .navbar ul li a:hover {
+  background: #00c8ff;
+  color: #fff;
+}
+
+/* Disable animations */
+body.no-anim * {
+  transition: none !important;
+}
+/* Light Theme */
+body.light-theme {
+  background: #f0f0f0;
+  color: #111;
+}
+
+body.light-theme main,
+body.light-theme section {
+  background: #ffffff10; /* slight transparency for sections */
+  color: #111;
+}
+
+body.light-theme .navbar {
+  background: rgba(255, 255, 255, 0.95);
+  color: #111;
+}
+
+body.light-theme .navbar h2 {
+  color: #00c8ff;
+}
+
+body.light-theme .navbar ul li a {
+  color: #111;
+}
+
+body.light-theme .navbar ul li a:hover {
+  background: #00c8ff;
+  color: #fff;
+}
+
+body.light-theme .resume-action-btn,
+body.light-theme #resume-popup,
+body.light-theme #settings-popup {
+  background: #00c8ff;
+  color: #fff;
+}
+.skill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.skill-icon {
+  font-size: 1.5rem;
+  color: #00c8ff;
+  width: 30px;
+}
+/* Project titles bigger */
+.accordion-btn {
+  font-size: 1.3rem;  /* Increase size */
+  font-weight: 600;   /* Make it bold */
+  color: #00c8ff;
+  padding: 15px 20px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+/* ===== Toggle Animations ON/OFF ===== */
+.no-anim * {
+  transition: none !important;
+  animation: none !important;
 }
