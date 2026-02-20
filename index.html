@@ -6,7 +6,7 @@
 
   <!-- Google Verification -->
   <meta name="google-site-verification" content="XKSCO_pmWEfkQlC2dWZKvma6R4IceTfX_NX_wv7TFl0" >
-  <!-- SEO Meta Tags -->
+
   <meta name="description" content="Ajith T M - Computer Science Engineering student portfolio with projects, skills, and resume.">
   <meta name="keywords" content="Ajith T M, Portfolio, Python, Data Science, Projects, Resume">
   <meta name="author" content="Ajith T M">
@@ -20,82 +20,107 @@
 
   <!-- Navbar -->
   <nav class="navbar">
-    <a href="#about">About</a>
-    <a href="#" id="skills-link">Skills</a>
-    <a href="#" id="projects-link">Projects</a>
-    <a href="#" id="contact-link">Contact</a>
-    <a href="#" id="resume-btn" class="resume-link">Resume</a>
+    <h2>Ajith T M</h2>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#" id="resume-btn" class="resume-link">Resume</a></li>
+    </ul>
+
+    <!-- Settings panel trigger button at bottom -->
+    <button id="settings-btn" class="settings-btn"><i class="fas fa-cog"></i> Settings</button>
   </nav>
 
   <!-- Resume popup -->
   <div id="resume-popup" class="hidden-resume">
     <a href="resume.pdf" target="_blank" class="resume-action-btn">View Resume</a>
     <a href="resume.pdf" download class="resume-action-btn">Download Resume</a>
+    <button id="resume-close" class="resume-close-btn">Close</button>
   </div>
 
-  <!-- About Section -->
-  <section id="about">
-    <div class="section-container slide-left visible-section">
-      <img src="photo.jpg" alt="Ajith Photo" class="profile-img">
-      <h1>Ajith T M</h1>
-      <p class="subtitle">Computer Science Engineering Student | Python & Data Science</p>
-
-      <p class="summary">
-        I am passionate about solving real-world problems using Python and Data Science.
-        I have completed projects in Crop Yield Prediction and Student Feedback System,
-        and I am eager to learn and contribute to impactful projects.
-      </p>
-
-      <p class="education">
-        <strong>College:</strong> Dr.Sri Sri Sri Shivakumara Mahaswamy College of Engineering<br>
-        <strong>CGPA:</strong> 8.52/10
-      </p>
+  <!-- Settings Panel -->
+  <div id="settings-panel" class="hidden-settings">
+    <h3>Settings</h3>
+    <div class="setting-item">
+      <label>Theme:</label>
+      <button id="toggle-theme">Light/Dark</button>
     </div>
-  </section>
-
-  <!-- Skills Section -->
-  <section id="skills" class="hidden-section">
-    <div class="section-container slide-right">
-      <h2>Skills</h2>
-      <div class="skill">
-        <span>Python</span>
-        <div class="skill-bar"><div class="skill-fill" data-percent="90%"></div></div>
-      </div>
-      <div class="skill">
-        <span>Pandas</span>
-        <div class="skill-bar"><div class="skill-fill" data-percent="85%"></div></div>
-      </div>
-      <div class="skill">
-        <span>NumPy</span>
-        <div class="skill-bar"><div class="skill-fill" data-percent="80%"></div></div>
-      </div>
-      <div class="skill">
-        <span>Machine Learning</span>
-        <div class="skill-bar"><div class="skill-fill" data-percent="75%"></div></div>
-      </div>
+    <div class="setting-item">
+      <label>Font Size:</label>
+      <button id="increase-font">A+</button>
+      <button id="decrease-font">A-</button>
     </div>
-  </section>
+    <div class="setting-item">
+      <label>Animations:</label>
+      <button id="toggle-animations">On/Off</button>
+    </div>
+  </div>
 
-  <!-- Projects Section with Folding Animation -->
-  <section id="projects" class="hidden-section">
-    <div class="section-container slide-left">
-      <h2>Projects</h2>
-      <div class="accordion">
-        <div class="accordion-item">
-          <button class="accordion-btn">Crop Yield Prediction</button>
-          <div class="accordion-content">
-            Predicted crop yield using Python and ML by analyzing historical data of weather, soil, and crop type.
+  <!-- Main Content -->
+  <main>
+    <!-- About Section -->
+    <section id="about">
+      <div class="section-container">
+        <img src="photo.jpg" alt="Ajith Photo" class="profile-img">
+        <h1>Ajith T M</h1>
+        <p class="subtitle">Computer Science Engineering Student | Python & Data Science</p>
+
+        <p class="summary">
+          I am passionate about solving real-world problems using Python and Data Science.
+          I have completed projects in Crop Yield Prediction and Student Feedback System.
+          I enjoy learning new technologies, working on AI and ML projects, and collaborating with teams.
+          My goal is to become a skilled Python Developer and contribute to impactful data-driven solutions.
+        </p>
+
+        <p class="education">
+          <strong>College:</strong> Dr.Sri Sri Sri Shivakumara Mahaswamy College of Engineering<br>
+    <strong>CGPA:</strong> 8.52/10<br>
+          <strong>Skills:</strong> Python, Pandas, NumPy, Machine Learning, Data Analysis
+        </p>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+      <div class="section-container">
+        <h2>Skills</h2>
+        <div class="skill">
+          <span>Python</span>
+          <div class="skill-bar"><div class="skill-fill" data-percent="90%"></div></div>
+        </div>
+        <div class="skill">
+          <span>Pandas</span>
+          <div class="skill-bar"><div class="skill-fill" data-percent="85%"></div></div>
+        </div>
+        <div class="skill">
+          <span>NumPy</span>
+          <div class="skill-bar"><div class="skill-fill" data-percent="80%"></div></div>
+        </div>
+        <div class="skill">
+          <span>Machine Learning</span>
+          <div class="skill-bar"><div class="skill-fill" data-percent="75%"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+      <div class="section-container">
+        <h2>Projects</h2>
+        <div class="projects-container">
+          <div class="project-card">
+            <h3>Crop Yield Prediction</h3>
+            <p>Predicted crop yield using Python and ML by analyzing historical data of weather, soil, and crop type.</p>
+          </div>
+          <div class="project-card">
+            <h3>Student Feedback System</h3>
+            <p>Developed a feedback management system using C# and SQL to store and analyze student feedback efficiently.</p>
           </div>
         </div>
-        <div class="accordion-item">
-          <button class="accordion-btn">Student Feedback System</button>
-          <div class="accordion-content">
-            Developed a feedback management system using C# and SQL to store and analyze student feedback efficiently.
-          </div>
-        </div>
       </div>
-    </div>
-  </section>
+    </section>
 <!-- Contact Section (hidden initially) -->
     <section id="contact" class="hidden-section">
         <div class="section-container left-align">
@@ -110,7 +135,6 @@
         </div>
     </section>
 
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
-    
