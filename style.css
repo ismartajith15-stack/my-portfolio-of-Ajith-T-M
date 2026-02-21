@@ -1,4 +1,4 @@
-/* ===== Global Styles ===== */
+/* ===== GLOBAL ===== */
 * {
   margin: 0;
   padding: 0;
@@ -11,16 +11,17 @@ body {
   min-height: 100vh;
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   color: #fff;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* ===== Navbar ===== */
+/* ===== NAVBAR ===== */
 .navbar {
   position: fixed;
   left: 0;
   top: 0;
   width: 220px;
   height: 100vh;
-  background: rgba(0,0,0,0.85);
+  background: rgba(0,0,0,0.9);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,7 +33,6 @@ body {
 .navbar h2 {
   color: #00c8ff;
   margin-bottom: 40px;
-  font-size: 1.5rem;
 }
 
 .navbar ul {
@@ -40,85 +40,93 @@ body {
   width: 100%;
 }
 
-.navbar ul li a {
-  display: block;
-  padding: 15px 20px;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
+.navbar ul li {
+  width: 100%;
 }
 
-.navbar ul li a:hover {
+.navbar ul li a,
+.navbar ul li button {
+  display: block;
+  width: 100%;
+  padding: 15px 20px;
+  background: none;
+  border: none;
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.navbar ul li a:hover,
+.navbar ul li button:hover {
   background: #00c8ff;
   color: #111;
-  transform: scale(1.05);
   border-radius: 5px;
 }
 
-/* ===== Resume / Settings Popup ===== */
-#resume-popup, #settings-popup {
-  position: fixed;
-  top: 60px;
-  left: 230px;
-  background: rgba(0,0,0,0.95);
-  padding: 15px;
-  border-radius: 10px;
+/* ===== DROPDOWN ===== */
+.nav-dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
   display: none;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 200;
+  position: absolute;
+  top: 45px;
+  left: 20px;
+  background: #222;
+  padding: 10px;
+  border-radius: 8px;
+  min-width: 160px;
+  z-index: 1000;
 }
 
-#resume-popup.show, #settings-popup.show {
-  display: flex;
+.dropdown-menu.show {
+  display: block;
 }
 
-.resume-action-btn {
+.dropdown-menu a,
+.dropdown-menu button {
+  display: block;
+  padding: 8px;
   color: #fff;
-  background: #00c8ff;
-  padding: 8px 15px;
-  border-radius: 5px;
   text-decoration: none;
-  text-align: center;
+  background: none;
+  border: none;
+  text-align: left;
   cursor: pointer;
 }
 
-.resume-action-btn:hover {
-  background: #0099cc;
+.dropdown-menu a:hover,
+.dropdown-menu button:hover {
+  background: #333;
 }
 
-/* ===== Main Content ===== */
+/* ===== MAIN ===== */
 main {
   margin-left: 220px;
   flex: 1;
   padding: 40px 50px;
 }
 
-/* ===== Sections ===== */
+/* ===== SECTION CONTROL ===== */
 .section {
+  display: none;
   margin-bottom: 60px;
   opacity: 0;
-  transform: translateX(100px);
-  transition: all 0.6s ease;
-  display: none;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
 }
 
-.section.visible-section {
-  opacity: 1;
-  transform: translateX(0);
+.section.active {
   display: block;
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* Unique animations */
-.slide-in { transform: translateX(0); }
-.slide-left { transform: translateX(-100px); }
-.fade-in { opacity: 0; transition: opacity 0.8s ease; }
-.fade-in.visible { opacity: 1; }
-.slide-up { transform: translateY(50px); transition: all 0.6s ease; }
-.slide-up.visible { transform: translateY(0); opacity:1; }
-
-/* ===== Profile Photo ===== */
+/* ===== PROFILE ===== */
 .profile-img {
   width: 180px;
   height: 180px;
@@ -128,18 +136,27 @@ main {
   margin-bottom: 20px;
 }
 
-/* ===== Skills ===== */
+/* ===== SKILLS ===== */
 .skill {
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-.skill span { display: block; margin-bottom: 5px; }
+
+.skill span {
+  display: block;
+  margin-bottom: 5px;
+}
+
 .skill-bar {
   width: 100%;
   background: rgba(255,255,255,0.1);
-  height: 20px;
+  height: 15px;
   border-radius: 10px;
   overflow: hidden;
 }
+
 .skill-fill {
   height: 100%;
   width: 0;
@@ -148,126 +165,200 @@ main {
   transition: width 1s ease-in-out;
 }
 
-/* ===== Projects Accordion ===== */
+/* ===== PROJECT ACCORDION ===== */
 .accordion-btn {
   width: 100%;
   background: rgba(0,0,0,0.5);
   color: #00c8ff;
-  padding: 12px 15px;
+  padding: 20px 25px;       /* bigger padding */
+  font-size: 18px;          /* bigger font */
+  font-weight: 600;         /* bold text */
   border: none;
-  outline: none;
   cursor: pointer;
-  text-align: center;
-  margin: 5px 0;
   border-radius: 5px;
-  transition: background 0.3s;
+  margin-bottom: 10px;      /* space between buttons */
+  transition: 0.3s ease;
 }
-.accordion-btn:hover { background: rgba(0,0,0,0.7); }
+
+.accordion-btn:hover {
+  background: rgba(0,0,0,0.7);
+}
+
+/* Content panel */
 .accordion-content {
   max-height: 0;
-  overflow: hidden;
+  overflow: visible;        /* important to prevent cutoff */
   background: rgba(0,0,0,0.3);
-  padding: 0 15px;
-  transition: max-height 0.4s ease;
+  padding: 0 20px;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  border-radius: 0 0 5px 5px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Add padding when content is open */
+.accordion-content.open {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+/* ===== CONTACT ===== */
+#contact {
+  color: #ffffff !important;
+}
+
+#contact p {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+#contact a,
+#contact a i {
+  color: #ffffff !important;
+  text-decoration: none !important;
+  opacity: 1 !important;
+}
+
+#contact a:visited {
+  color: #ffffff !important;
+}
+
+#contact a:hover,
+#contact a:hover i {
+  color: #00ffff !important;
+}
+
+/* ===== LIGHT THEME ===== */
+body.light-theme {
+  background: #f0f0f0;
+  color: #111;
+}
+
+body.light-theme .navbar {
+  background: #ffffff;
+}
+
+body.light-theme .navbar ul li a,
+body.light-theme .navbar ul li button {
+  color: #111;
+}
+
+body.light-theme .dropdown-menu {
+  background: #fff;
+}
+
+body.light-theme .dropdown-menu a,
+body.light-theme .dropdown-menu button {
+  color: #111;
+}
+
+/* ===== DISABLE ANIMATION ===== */
+body.no-anim *,
+body.no-anim *::before,
+body.no-anim *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width: 900px) {
+
+  body {
+    flex-direction: column;
+  }
+
+  .navbar {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 15px 0;
+  }
+
+  main {
+    margin-left: 0;
+    padding: 20px;
+  }
+}
+/* Contact Links & Icons Fix */
+.contact-link,
+.contact-link i {
+    color: #ffffff !important;
+    text-decoration: none !important;
+}
+
+.contact-link:hover,
+.contact-link:hover i {
+    color: #00ffff !important;
+}
+.accordion-content {
+  max-height: 0;               /* initially hidden */
+  overflow: hidden;            /* hide extra content */
+  padding: 0 15px;             /* horizontal padding */
+  transition: max-height 0.4s ease, padding 0.4s ease;
   border-radius: 0 0 5px 5px;
   margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
-/* ===== Contact Section ===== */
-#contact a { color: #fff; text-decoration: none; transition: all 0.3s ease; }
-#contact a:hover { color: #00c8ff; transform: scale(1.05); }
-.social-links a { display: inline-block; margin-right: 15px; color:#fff; transition: all 0.3s ease; }
-.social-links a:hover { color:#00c8ff; transform: scale(1.1); }
-
-/* ===== Responsive ===== */
-@media(max-width: 900px){
-  body { flex-direction: column; }
-  .navbar { width: 100%; height: auto; flex-direction: row; justify-content: space-around; padding: 15px 0; }
-  main { margin-left: 0; padding: 20px; }
-}
-/* Light theme */
-body.light-theme {
-  background: #f0f0f0;
-  color: #111;
+/* When open */
+.accordion-content.open {
+  max-height: 500px;          /* big enough to show full content */
+  padding: 10px 15px;         /* add vertical padding */
 }
 
-body.light-theme .navbar {
-  background: rgba(255,255,255,0.95);
-  color: #111;
+/* Make sure section container allows content */
+.section-container {
+  overflow: visible !important;
 }
-
-body.light-theme .navbar ul li a {
-  color: #111;
-}
-
-body.light-theme .navbar ul li a:hover {
+.skill-fill {
+  height: 100%;
+  width: 0;
   background: #00c8ff;
-  color: #fff;
+  border-radius: 10px;
+  transition: width 1.5s ease-in-out; /* animation */
 }
-
-/* Disable animations */
-body.no-anim * {
-  transition: none !important;
-}
-/* Light Theme */
-body.light-theme {
-  background: #f0f0f0;
-  color: #111;
-}
-
-body.light-theme main,
-body.light-theme section {
-  background: #ffffff10; /* slight transparency for sections */
-  color: #111;
-}
-
-body.light-theme .navbar {
-  background: rgba(255, 255, 255, 0.95);
-  color: #111;
-}
-
-body.light-theme .navbar h2 {
-  color: #00c8ff;
-}
-
-body.light-theme .navbar ul li a {
-  color: #111;
-}
-
-body.light-theme .navbar ul li a:hover {
-  background: #00c8ff;
-  color: #fff;
-}
-
-body.light-theme .resume-action-btn,
-body.light-theme #resume-popup,
-body.light-theme #settings-popup {
-  background: #00c8ff;
-  color: #fff;
-}
-.skill {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.skill-icon {
-  font-size: 1.5rem;
-  color: #00c8ff;
-  width: 30px;
-}
-/* Project titles bigger */
-.accordion-btn {
-  font-size: 1.3rem;  /* Increase size */
-  font-weight: 600;   /* Make it bold */
-  color: #00c8ff;
-  padding: 15px 20px;
+#anim-toggle {
+  padding: 8px 12px;
   border-radius: 5px;
+  border: none;
+  cursor: pointer;
   transition: all 0.3s ease;
 }
-/* ===== Toggle Animations ON/OFF ===== */
-.no-anim * {
-  transition: none !important;
-  animation: none !important;
+.skill-fill {
+  height: 100%;
+  width: 0;
+  background: #00c8ff;
+  border-radius: 10px;
+  transition: width 1s ease-in-out;
 }
+body.no-anim .skill-fill {
+  transition: none !important;
+}
+.skill-fill {
+  height: 100%;
+  width: 0; /* start at 0 */
+  background: #00c8ff;
+  border-radius: 10px;
+  transition: width 1s ease-in-out;
+}
+
+body.no-anim .skill-fill {
+  transition: none !important;
+}
+/* Broken glass pieces animation */
+.piece {
+  opacity: 0;
+  transform: translateY(200px) rotateZ(15deg) scale(0.5);
+  transition: transform 1s ease, opacity 1s ease;
+}
+
+.piece.show {
+  opacity: 1;
+  transform: translateY(0) rotateZ(0deg) scale(1);
+}
+
+.piece-1 { transition-delay: 0.2s; }
+.piece-2 { transition-delay: 0.5s; }
+.piece-3 { transition-delay: 0.8s; }
