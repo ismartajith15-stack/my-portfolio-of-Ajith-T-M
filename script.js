@@ -1,110 +1,140 @@
-// ===== Elements =====
-const resumeBtn = document.getElementById('resume-btn');
-const resumePopup = document.getElementById('resume-popup');
-const resumeClose = document.getElementById('resume-close');
-
-const settingsBtn = document.getElementById('settings-btn');
-const settingsPopup = document.getElementById('settings-popup');
-const settingsClose = document.getElementById('settings-close');
-
-const themeToggle = document.getElementById('theme-toggle');
-const animToggle = document.getElementById('anim-toggle');
-const fontSmall = document.getElementById('font-small');
-const fontMedium = document.getElementById('font-medium');
-const fontLarge = document.getElementById('font-large');
-
-const navLinks = document.querySelectorAll('.navbar a[href^="#"]');
-const sections = document.querySelectorAll('.section');
-const skillFills = document.querySelectorAll('.skill-fill');
-
-// ===== Resume Popup =====
-resumeBtn.addEventListener('click', () => {
-  resumePopup.classList.toggle('show');
-  settingsPopup.classList.remove('show');
+document.addEventListener("DOMContentLoaded", function () {
+  const aboutPieces = document.querySelectorAll("#about .piece");
+aboutPieces.forEach(piece => {
+  setTimeout(() => {
+    piece.classList.add("show");
+  }, 100); // small delay before first piece
 });
-resumeClose.addEventListener('click', () => resumePopup.classList.remove('show'));
+  // =========================
+  // SECTION SHOW/HIDE
+  // =========================
+  const sections = document.querySelectorAll(".section");
+  const navLinks = document.querySelectorAll(".nav-links a[href^='#']");
 
-// ===== Settings Popup =====
-settingsBtn.addEventListener('click', () => {
-  settingsPopup.classList.toggle('show');
-  resumePopup.classList.remove('show');
-});
-settingsClose.addEventListener('click', () => settingsPopup.classList.remove('show'));
-
-// ===== Theme Toggle =====
-themeToggle.addEventListener('click', () => {
-  document.body.classList.toggle('light-theme');
-});
-
-// ===== Animations Toggle =====
-animToggle.addEventListener('click', () => {
-  document.body.classList.toggle('no-anim');
-});
-
-// ===== Font Size =====
-fontSmall.addEventListener('click', () => document.body.style.fontSize = '14px');
-fontMedium.addEventListener('click', () => document.body.style.fontSize = '16px');
-fontLarge.addEventListener('click', () => document.body.style.fontSize = '18px');
-
-// ===== Navbar Section Switching =====
-navLinks.forEach(link => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    const targetId = link.getAttribute('href').substring(1);
-
-    sections.forEach(sec => {
-      if(sec.id === targetId){
-        sec.classList.add('visible-section');
-        sec.classList.remove('hidden-section');
+  function animateSkills() {
+    const skills = document.querySelectorAll(".skill-fill");
+    skills.forEach(skill => {
+      const percent = skill.getAttribute("data-percent");
+      if (!document.body.classList.contains("no-anim")) {
+        setTimeout(() => {
+          skill.style.width = percent; // animated fill
+        }, 50);
       } else {
-        sec.classList.remove('visible-section');
-        sec.classList.add('hidden-section');
+        skill.style.transition = "none";
+        skill.style.width = percent; // instant fill
       }
     });
-
-    // Close popups when navigating
-    settingsPopup.classList.remove('show');
-    resumePopup.classList.remove('show');
-
-    // Animate skills only when Skills section is active
-    if(targetId === 'skills'){
-      skillFills.forEach(fill => fill.style.width = fill.getAttribute('data-percent'));
-    } else {
-      skillFills.forEach(fill => fill.style.width = '0');
-    }
-  });
-});
-
-// ===== Projects Accordion =====
-document.querySelectorAll('.accordion-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const content = btn.nextElementSibling;
-    btn.classList.toggle('active');
-    if(content.style.maxHeight){
-      content.style.maxHeight = null;
-    } else {
-      content.style.maxHeight = content.scrollHeight + "px";
-    }
-  });
-});
-resumeBtn.addEventListener('click', (e) => {
-  e.preventDefault(); // THIS LINE IS REQUIRED
-  resumePopup.classList.toggle('show');
-  settingsPopup.classList.remove('show');
-});
-
-settingsBtn.addEventListener('click', (e) => {
-  e.preventDefault(); // THIS LINE IS REQUIRED
-  settingsPopup.classList.toggle('show');
-  resumePopup.classList.remove('show');
-});
-animToggle.addEventListener('click', () => {
-  document.body.classList.toggle('no-anim');
-  
-  // Update button text dynamically
-  if(document.body.classList.contains('no-anim')){
-    animToggle.textContent = "Animations OFF";
-  } else {
-    animToggle.textContent = "Animations ON";
   }
+
+  function resetSkills() {
+    const skills = document.querySelectorAll(".skill-fill");
+    skills.forEach(skill => skill.style.width = "0");
+  }
+
+  function showSection(id) {
+    sections.forEach(section => section.classList.remove("active"));
+    const activeSection = document.getElementById(id);
+    if (activeSection) activeSection.classList.add("active");
+
+    if (id === "skills") animateSkills();
+    else resetSkills();
+  }
+
+  // Show About on page load
+  showSection("about");
+
+  // Navbar click control
+  navLinks.forEach(link => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      const targetId = this.getAttribute("href").substring(1);
+      showSection(targetId);
+    });
+  });
+
+  // =========================
+  // DROPDOWN SYSTEM
+  // =========================
+  const resumeBtn = document.getElementById("resume-btn");
+  const resumeDropdown = document.getElementById("resume-dropdown");
+  const settingsBtn = document.getElementById("settings-btn");
+  const settingsDropdown = document.getElementById("settings-dropdown");
+
+  resumeBtn.addEventListener("click", e => {
+    e.preventDefault();
+    resumeDropdown.classList.toggle("show");
+    settingsDropdown.classList.remove("show");
+  });
+
+  settingsBtn.addEventListener("click", e => {
+    e.preventDefault();
+    settingsDropdown.classList.toggle("show");
+    resumeDropdown.classList.remove("show");
+  });
+
+  document.addEventListener("click", e => {
+    if (!e.target.closest(".nav-dropdown")) {
+      resumeDropdown.classList.remove("show");
+      settingsDropdown.classList.remove("show");
+    }
+  });
+
+  // =========================
+  // THEME TOGGLE
+  // =========================
+  document.getElementById("theme-toggle").onclick = () => {
+    document.body.classList.toggle("light-theme");
+  };
+
+  // =========================
+  // FONT SIZE
+  // =========================
+  document.getElementById("font-small").onclick = () => document.body.style.fontSize = "14px";
+  document.getElementById("font-medium").onclick = () => document.body.style.fontSize = "16px";
+  document.getElementById("font-large").onclick = () => document.body.style.fontSize = "18px";
+
+  // =========================
+// ANIMATION TOGGLE FIX
+// =========================
+const animToggle = document.getElementById("anim-toggle");
+if (animToggle) {
+  animToggle.addEventListener("click", function () {
+    document.body.classList.toggle("no-anim");
+
+    const skills = document.querySelectorAll('.skill-fill');
+
+    if (document.body.classList.contains("no-anim")) {
+      animToggle.textContent = "Animation OFF";
+      animToggle.style.background = "#ff4d4d";
+      animToggle.style.color = "#fff";
+      
+      // Disable transition
+      skills.forEach(skill => skill.style.transition = "none");
+    } else {
+      animToggle.textContent = "Animation ON";
+      animToggle.style.background = "#00c8ff";
+      animToggle.style.color = "#111";
+      
+      // Restore transition
+      skills.forEach(skill => skill.style.transition = "width 1s ease-in-out");
+    }
+  });
+}
+
+  // =========================
+  // PROJECT ACCORDION
+  // =========================
+  const accordionBtns = document.querySelectorAll('.accordion-btn');
+  accordionBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const content = btn.nextElementSibling;
+      if (content.classList.contains('open')) {
+        content.classList.remove('open');
+      } else {
+        document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('open'));
+        content.classList.add('open');
+      }
+    });
+  });
+
 });
