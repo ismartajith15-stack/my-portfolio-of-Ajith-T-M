@@ -21,50 +21,48 @@
 
   <!-- Navbar -->
   <nav class="navbar">
-    <h2>Ajith T M</h2>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-      <li><a href="#" id="resume-btn">Resume</a></li>
-      <li><a href="#" id="settings-btn">Settings</a></li>
-    </ul>
-  </nav>
+  <button id="nav-toggle" class="nav-toggle-btn">☰</button>
+  <h2>Ajith T M</h2>
 
-  <!-- Resume popup -->
-  <div id="resume-popup" class="hidden-resume">
-    <a href="resume.pdf" target="_blank" class="resume-action-btn">View Resume</a>
-    <a href="resume.pdf" download class="resume-action-btn">Download Resume</a>
-    <button id="resume-close" class="resume-action-btn">Close</button>
-  </div>
+  <ul class="nav-links">
+  <li><a href="#about">About</a></li>
+  <li><a href="#skills">Skills</a></li>
+  <li><a href="#projects">Projects</a></li>
+  <li><a href="#contact">Contact</a></li>
+    <!-- Resume Dropdown -->
+    <li class="nav-dropdown">
+      <a href="#" id="resume-btn">Resume ▾</a>
+      <div class="dropdown-menu" id="resume-dropdown">
+        <a href="resume.pdf" target="_blank">View Resume</a>
+        <a href="resume.pdf" download>Download Resume</a>
+      </div>
+    </li>
 
-  <!-- Settings popup -->
-  <div id="settings-popup" class="hidden-resume">
-    <h3>Settings</h3>
-    <div>
-      <label>Theme:</label>
-      <button id="theme-toggle">Toggle Light/Dark</button>
-    </div>
-    <div>
-      <label>Font Size:</label>
-      <button id="font-small">Small</button>
-      <button id="font-medium">Medium</button>
-      <button id="font-large">Large</button>
-    </div>
-    <div>
-      <label>Animations:</label>
-      <button id="anim-toggle">Toggle Animations</button>
-    </div>
-    <button id="settings-close" class="resume-action-btn">Close</button>
-  </div>
+    <!-- Settings Dropdown -->
+    <li class="nav-dropdown">
+      <a href="#" id="settings-btn">Settings ▾</a>
+      <div class="dropdown-menu" id="settings-dropdown">
+        <button id="theme-toggle">Toggle Light/Dark</button>
+        <button id="font-small">Small Font</button>
+        <button id="font-medium">Medium Font</button>
+        <button id="font-large">Large Font</button>
+        <button id="anim-toggle">Toggle Animations</button>
+      </div>
+    </li>
 
+  </ul>
+</nav>
   <main>
     <!-- About Section -->
-    <section id="about" class="section visible-section slide-in">
-      <div class="section-container">
+    <section id="about" class="section section active slide-in">
+      <div class="thunder-wrapper">
+        <div class="piece piece-1">
         <img src="photo.jpg" alt="Ajith Photo" class="profile-img">
+        </div>
+        <div class="piece piece-2">
         <h1>Ajith T M</h1>
+        </div>  
+        <div class="piece piece-3">
         <p class="subtitle">Computer Science Engineering Student | Python & Data Science</p>
         <p class="summary">
           Passionate about solving real-world problems using Python and Data Science.
@@ -76,9 +74,10 @@
     <strong>CGPA:</strong> 8.52/10<br>
         </p>
       </div>
+      </div>  
     </section>
 
-    <section id="skills" class="section hidden-section slide-left">
+    <section id="skills" class="section  slide-left">
   <div class="section-container">
     <h2>Skills</h2>
     <div class="skill">
@@ -105,7 +104,7 @@
 </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="section hidden-section fade-in">
+    <section id="projects" class="section  fade-in">
       <div class="section-container">
         <h2>Projects</h2>
         <div class="accordion">
@@ -125,19 +124,23 @@
       </div>
     </section>
 <!-- Contact Section (hidden initially) -->
-    <section id="contact" class="hidden-section">
-        <div class="section-container left-align">
-            <h2>Contact</h2>
-            <p>Email: <a href="mailto:ismartajith15@gmail.com">ismartajith15@gmail.com</a></p>
-            <p>Phone: <a href="tel:+919738611226">+91 9738611226</a></p>
+    <!-- Contact Section -->
+<section id="contact" class="section">
+  <div class="section-container left-align">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:ismartajith15@gmail.com" class="contact-link">ismartajith15@gmail.com</a></p>
+    <p>Phone: <a href="tel:+919738611226" class="contact-link">+91 9738611226</a></p>
 
-            <div class="social-links">
-                <a href="https://github.com/" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                <a href="https://www.linkedin.com/in/ajith-t-m-63775b354" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-            </div>
-        </div>
-    </section>
-
+    <div class="social-links">
+      <a href="https://github.com/" target="_blank" class="contact-link">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/ajith-t-m-63775b354" target="_blank" class="contact-link">
+        <i class="fab fa-linkedin"></i> LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
 <script src="script.js"></script>
 </body>
 </html>
